@@ -48,7 +48,7 @@ app.get("/cam/:id", async function(req,res){
    const {id}=req.params
 
     const data = await Client.db("B33WD").collection("Product").findOne({ id:id })
-    res.send(data)
+    data?res.send(data):{msg:"no item found"}
 })
 
 
@@ -70,12 +70,13 @@ app.get("/Cart", async function(req,res){
 app.get("/Cart/:id", async function(req,res){
 
     const data = await Client.db("B33WD").collection("Cart").findOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
 })
 app.delete("/Cart/:id", async function(req,res){
 const {id}=req.params
     const data = await Client.db("B33WD").collection("Cart").deleteOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
+
 })
 
 app.get("/cars/:id", async function(req,res){
@@ -83,7 +84,8 @@ app.get("/cars/:id", async function(req,res){
 
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
+
 })
 app.get("/Ele", async function(req,res){
 
@@ -97,13 +99,10 @@ app.post("/Ele", async function(req,res){
 })
 app.get("/Ele/:id", async function(req,res){
    const {id}=req.params
-
-
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
 })
 app.get("/House_product", async function(req,res){
-
     const data = await Client.db("B33WD").collection("Product").find({}).toArray()
     res.send(data)
 })
@@ -117,7 +116,7 @@ app.get("/House_product/:id", async function(req,res){
 
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    res.send(data)
+    data?res.send(data):{msg:"no item found"}
 })
 app.get("/AllProduct", async function(req,res){
 
@@ -136,7 +135,8 @@ app.get("/AllProduct/:id", async function(req,res){
 
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
+
 })
 app.get("/Admin/EditProduct", async function(req,res){
 
@@ -147,19 +147,21 @@ app.delete("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
 
     const data = await Client.db("B33WD").collection("Product").deleteOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
+
 })
 app.get("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    res.send(data)
+    {data?res.send(data):{msg:"no item found"}}
+
 })
 
 
 app.post("/Admin/AddProduct",async function(req,res){
     const data = req.body
-    
+
     const set = await Client.db("B33WD").collection("Product").insertMany(data)
     res.send(set)
 })
