@@ -159,6 +159,7 @@ app.get("/Admin/EditProduct/:id", async function(req,res){
 
 app.post("/Admin/AddProduct",async function(req,res){
     const data = req.body
+    
     const set = await Client.db("B33WD").collection("Product").insertMany(data)
     res.send(set)
 })
