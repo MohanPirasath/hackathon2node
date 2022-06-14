@@ -97,6 +97,11 @@ app.post("/Ele", async function(req,res){
     const set = await Client.db("B33WD").collection("Cart").insertOne(data)
     res.send(set)
 })
+app.post("/House_product", async function(req,res){
+    const data=req.body
+    const set = await Client.db("B33WD").collection("Cart").insertOne(data)
+    res.send(set)
+})
 app.get("/Ele/:id", async function(req,res){
    const {id}=req.params
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
@@ -106,11 +111,7 @@ app.get("/House_product", async function(req,res){
     const data = await Client.db("B33WD").collection("Product").find({}).toArray()
     res.send(data)
 })
-app.post("/House_product", async function(req,res){
-    const data=req.body
-    const set = await Client.db("B33WD").collection("Cart").insertOne(data)
-    res.send(set)
-})
+
 app.get("/House_product/:id", async function(req,res){
    const {id}=req.params
 
