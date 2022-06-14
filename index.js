@@ -59,7 +59,7 @@ app.get("/cars", async function(req,res){
 })
 app.post("/cars", async function(req,res){
     const data=req.body
-    const set = await Client.db("B33WD").collection("Cart").insertOne(data)
+    const set = await Client.db("B33WD").collection("Cart").insertOne({data})
     res.send(set)
 })
 app.get("/Cart", async function(req,res){
