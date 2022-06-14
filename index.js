@@ -41,7 +41,7 @@ app.get("/cam", async function(req,res){
 
 app.post("/cam", async function(req,res){
     const data=req.body
-    const set = await Client.db("B33WD").collection("Cart").insertOne(data)
+    const set = await Client.db("B33WD").collection("Cart").insertMany(data)
     res.send(set)
 })
 app.get("/cam/:id", async function(req,res){
@@ -59,12 +59,17 @@ app.get("/cars", async function(req,res){
 })
 app.post("/cars", async function(req,res){
     const data=req.body
-    const set = await Client.db("B33WD").collection("Cart").insertOne({data})
+    const set = await Client.db("B33WD").collection("Cart").insertOne(data)
     res.send(set)
 })
 app.get("/Cart", async function(req,res){
 
     const data = await Client.db("B33WD").collection("Cart").find({}).toArray()
+    res.send(data)
+})
+app.get("/Cart/:id", async function(req,res){
+
+    const data = await Client.db("B33WD").collection("Cart").findOne({id:id})
     res.send(data)
 })
 app.delete("/Cart/:id", async function(req,res){
