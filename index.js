@@ -146,7 +146,7 @@ app.get("/Admin/EditProduct", async function(req,res){
 })
 app.delete("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
-
+     
     const data = await Client.db("B33WD").collection("Product").deleteOne({id:id})
     {data?res.send(data):{msg:"no item found"}}
 
@@ -155,7 +155,8 @@ app.get("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    {data?res.send(data):{msg:"no item found"}}
+    // {data?res.send(data):{msg:"no item found"}}
+    data.deletedCount>0?res.send(data):res.status(404).send("product not found")
 
 })
 
