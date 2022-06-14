@@ -12,7 +12,6 @@ const PORT=process.env.PORT;
 
 
 app.use(express.json());
-app.use(cors());
 
 const MONGO_URL = process.env.MONGO;
 // console.log(process.env)
@@ -25,6 +24,8 @@ async function Createconnection() {
 }
 
 export const Client = await Createconnection();
+app.use(cors());
+
 
 app.get("/", function (req, res) {
   res.send("backend server created");
