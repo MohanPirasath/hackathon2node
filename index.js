@@ -153,7 +153,7 @@ app.get("/Admin/EditProduct", async function(req,res){
     const data = await Client.db("B33WD").collection("Product").find({}).toArray()
     res.send(data)
 })
-app.delete("/Admin/EditProduct", async function(req,res){
+app.delete("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
      
     const data = await Client.db("B33WD").collection("Product").deleteOne({id:id})
