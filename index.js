@@ -75,8 +75,17 @@ app.get("/Cart/:id", async function(req,res){
 app.delete("/Cart/:id", async function(req,res){
 const {id}=req.params
     const data = await Client.db("B33WD").collection("Cart").deleteOne({id:id})
-    {data?res.send(data):{msg:"no item found"}}
+    // {data?res.send(data):{msg:"no item found"}}
+    data.deletedCount>0?res.send(data):res.status(404).send("product not found")
 
+
+})
+
+app.put("/Admin/Edit/:id",async function(req,res){
+    const data = req.body;
+    const {id}=req.body;
+    const result=await Client.db("B33WD").collection("Product").updateOne({id:id},{$set:data})
+    res.send(result)
 })
 
 app.get("/cars/:id", async function(req,res){
@@ -155,8 +164,7 @@ app.get("/Admin/EditProduct/:id", async function(req,res){
     const {id}=req.params
 
     const data = await Client.db("B33WD").collection("Product").findOne({id:id})
-    // {data?res.send(data):{msg:"no item found"}}
-    data.deletedCount>0?res.send(data):res.status(404).send("product not found")
+    {data?res.send(data):{msg:"no item found"}}
 
 })
 
