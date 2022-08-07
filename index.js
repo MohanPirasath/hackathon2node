@@ -2,6 +2,7 @@ import express from "express";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import cors from "cors";
+import bcrypt from "bcrypt";
 
 const app = express();
 
@@ -9,9 +10,11 @@ const app = express();
 
 dotenv.config()
 const PORT=process.env.PORT;
+app.use(cors());
 
 
 app.use(express.json());
+
 
 const MONGO_URL = process.env.MONGO;
 // console.log(process.env)
@@ -24,7 +27,6 @@ async function Createconnection() {
 }
 
 export const Client = await Createconnection();
-app.use(cors());
 
 
 app.get("/", function (req, res) {
