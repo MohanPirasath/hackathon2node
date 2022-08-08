@@ -10,7 +10,6 @@ const app = express();
 
 dotenv.config()
 const PORT=process.env.PORT;
-app.use(cors());
 
 
 app.use(express.json());
@@ -27,6 +26,7 @@ async function Createconnection() {
 }
 
 export const Client = await Createconnection();
+app.use(cors());
 
 
 app.get("/", function (req, res) {
@@ -70,12 +70,8 @@ app.post("/Adminlogin", async function(req,res){
 })
 app.post("/login", async function(req,res){
     const {username,password}=req.body
-    const userexist = await Client.db("FoodToken").collection("users").findOne({username:username})
-    if (!userexist) {
-        res.status(400).send({
-          msg: "Invalid credentialss",
-        });
-      } else {
+    const userexist = await Client.db("B33WD").collection("users").findOne({username:username})
+    if (userexist) {
         const alreadystoredpassword = userexist.password;
         const ispasswordmatch = await bcrypt.compare(
           password,
@@ -87,6 +83,12 @@ app.post("/login", async function(req,res){
      else{
         res.status(400).send("password not matched")
      }
+       
+      } else {
+        res.status(400).send(
+            "Invalid credentialss"
+          );
+        
     }
   
 })
@@ -94,14 +96,14 @@ app.post("/login", async function(req,res){
     app.post("/signup",async function(req,res){
         const {username,password} = req.body
       
-       const userexist= await Client.db("FoodToken").collection("users").findOne({username:username})
+       const userexist= await Client.db("B33WD").collection("users").findOne({username:username})
       
         if(userexist){
             res.status(400).send("Username already exist")
         }else{
               const fullhashedpassword = await genhashedpassword(password)
-              // console.log("password: ",fullhashedpassword)
-       const Adduser= await Client.db("FoodToken").collection("users").insertOne({username:username,password:fullhashedpassword})
+            //   console.log("password: ",fullhashedpassword)
+       const Adduser= await Client.db("B33WD").collection("users").insertOne({username:username,password:fullhashedpassword})
        res.status(200).send("Signup successfull")
             
         }
